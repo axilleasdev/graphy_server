@@ -1,13 +1,9 @@
-FROM node:18.12.1
-
-RUN npm install -g npm@9.1.3
-
-ADD package.json .
-ADD index.js .
-ADD build .
-COPY . .
-RUN npm install
-
-EXPOSE 8080
-
-CMD [ "node", "index.js" ]
+FROM node:20.11-bookworm-slim
+COPY graphserver.js .
+COPY package.json .
+COPY UScities.json .
+RUN npm install &&\
+    apk update &&\
+    apk upgrade
+EXPOSE  4000
+CMD node:20.11-bookworm-slim
